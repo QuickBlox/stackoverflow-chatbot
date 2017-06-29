@@ -13,7 +13,7 @@
   },
   "keywords": [],
   "author": "",
-  "license": "BSD-2",
+  "license": "Apache 2.0",
   "bugs": {
     "url": "https://github.com/soulfly/stackoverflow_tags_trigger-slack/issues"
   },
