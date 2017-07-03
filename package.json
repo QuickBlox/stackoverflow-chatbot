@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "start": "npm i && rimraf ./dist && babel -d ./dist ./src -s && pm2 start index.js --name stackoverwlow-chatbot",
-    "stop": "pm2 delete stackoverwlow-chatbot"
+    "stop": "pm2 delete stackoverwlow-chatbot",
+    "startNodeJS": "npm i && rimraf ./dist && babel -d ./dist ./src -s && node index.js"
   },
   "repository": {
     "type": "git",
