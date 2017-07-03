@@ -4,8 +4,8 @@
   "description": "StackOverflow tags trigger service for Slack",
   "main": "index.js",
   "scripts": {
-    "start": "rimraf ./dist && babel -d ./dist ./src -s",
-    "run": "pm2 start index.js"
+    "start": "npm i && rimraf ./dist && babel -d ./dist ./src -s && pm2 start index.js --name stackoverwlow-chatbot",
+    "stop": "pm2 delete stackoverwlow-chatbot"
   },
   "repository": {
     "type": "git",
@@ -19,15 +19,11 @@
   },
   "homepage": "https://github.com/soulfly/stackoverflow_tags_trigger-slack",
   "dependencies": {
-    "babel": "^6.23.0",
-    "babel-core": "^6.25.0",
+    "backoff": "^2.5.0",
     "node-cron": "^1.2.0",
-    "pm2": "^2.5.0",
     "quickblox": "^2.6.0",
     "rimraf": "^2.6.1",
-    "stackexchange": "^0.4.0"
-  },
-  "devDependencies": {
+    "stackexchange": "^0.4.0",
     "babel-cli": "^6.24.1",
     "babel-preset-env": "^1.5.2",
     "babel-register": "^6.24.1"
