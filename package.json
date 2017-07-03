@@ -1,46 +1,39 @@
 {
-  "name": "stackoverflow_tags_trigger-slack",
-  "version": "0.0.1",
-  "description": "StackOverflow tags trigger service for Slack",
+  "name": "stackoverflow-chatbot",
+  "version": "1.0.0",
+  "description": "StackOverflow bot for Q-municate",
   "main": "index.js",
   "scripts": {
-    "prestart": "npm i && rimraf ./dist && babel -d ./dist ./src -s",
+    "prestart": "npm install",
     "start": "pm2 start index.js --name stackoverwlow-chatbot",
-    "stop": "pm2 delete stackoverwlow-chatbot",
-    "run": "node index.js"
+    "stop": "pm2 delete stackoverwlow-chatbot"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/soulfly/stackoverflow_tags_trigger-slack.git"
+    "url": "https://github.com/QuickBlox/stackoverflow-chatbot.git"
   },
-  "keywords": [],
-  "author": "",
-  "license": "Apache 2.0",
+  "keywords": [
+    "quickblox",
+    "chat",
+    "q-municate",
+    "bot",
+    "chatbot",
+    "stackoverflow",
+    "stackexchange"
+  ],
+  "author": "Vlad Lukhanin <vladislav.lukhanin@quickblox.com>",
+  "contributors": [
+    "Vlad Lukhanin <vladislav.lukhanin@quickblox.com>",
+    "Igor Khomenko <igor@quickblox.com>"
+  ],
+  "license": "(Apache-2.0)",
   "bugs": {
-    "url": "https://github.com/soulfly/stackoverflow_tags_trigger-slack/issues"
+    "url": "https://github.com/QuickBlox/stackoverflow-chatbot/issues"
   },
-  "homepage": "https://github.com/soulfly/stackoverflow_tags_trigger-slack",
+  "homepage": "https://github.com/QuickBlox/stackoverflow-chatbot",
   "dependencies": {
-    "backoff": "^2.5.0",
     "node-cron": "^1.2.0",
     "quickblox": "^2.6.0",
-    "rimraf": "^2.6.1",
-    "stackexchange": "^0.4.0",
-    "babel-cli": "^6.24.1",
-    "babel-preset-env": "^1.5.2",
-    "babel-register": "^6.24.1"
-  },
-  "babel": {
-    "presets": [
-      [
-        "env",
-        {
-          "targets": {
-            "node": "current"
-          }
-        }
-      ]
-    ],
-    "plugins": []
+    "stackexchange": "^0.4.0"
   }
 }

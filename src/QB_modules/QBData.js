@@ -1,7 +1,9 @@
-import QB from 'quickblox';
-import CONFIG from '../../config';
+'use strict';
 
-export default class QBData {
+const QB = require('quickblox');
+const CONFIG = require('../../config.js');
+
+module.exports = class QBData {
     constructor() {
         this.dataClassName = CONFIG.quickblox.dataClassName;
     }
@@ -115,5 +117,5 @@ export default class QBData {
             });
         });
     }
-}
+};
 

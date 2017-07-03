@@ -1,8 +1,10 @@
-import QB from 'quickblox';
-import QBChat from './QBChat';
-import CONFIG from '../../config';
+'use strict';
 
-export default class QBDialog {
+const QB = require('quickblox');
+const QBChat = require('./QBChat');
+const CONFIG = require('../../config.js');
+
+module.exports = class QBDialog {
     constructor() {
         this.userId = CONFIG.quickblox.bot.id;
         this.userDialogsAssotiation = {};
@@ -100,7 +102,7 @@ export default class QBDialog {
                     }
                 });
             });
-        }
+        };
 
         return new Promise((resolve, reject) => {
             this.get(params)
@@ -194,4 +196,4 @@ export default class QBDialog {
     deleteRecipientJid(dialogId) {
         delete this.recipientJid[dialogId];
     }
-}
+};

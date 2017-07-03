@@ -1,9 +1,11 @@
-import QB from 'quickblox';
-import QBDialog from './QBDialog';
-import QBData from './QBData';
-import CONFIG from '../../config';
+'use strict';
 
-export default class QBChat {
+const QB = require('quickblox');
+const QBDialog = require('./QBDialog.js');
+const QBData = require('./QBData.js');
+const CONFIG = require('../../config.js');
+
+module.exports = class QBChat {
     constructor() {
         QB.init(
             CONFIG.quickblox.appId,
@@ -193,10 +195,7 @@ export default class QBChat {
             },
 
             sendDefaultResponse() {
-                this.sendResponse(
-                    `I don\'t know what you want.
-                    Use "@so /help" to get all commands list.
-                    `);
+                this.sendResponse(`I don\'t know what you want. Use "@so /help" to get all commands list.`);
             },
 
             sendResponseToList() {
@@ -216,8 +215,7 @@ export default class QBChat {
 
                     records.forEach((item) => {
                         if (item.tag) {
-                            text += `ID - ${item._id}
-                                Subscribed to "${item.tag}" \n`;
+                            text += `ID - ${item._id} \nSubscribed to "${item.tag}" \n`;
                         }
 
                         if (item.filters && item.filters.length) {
@@ -240,12 +238,13 @@ export default class QBChat {
             },
 
             sendResponseToHelp() {
-                let text = `Possible commands:
-                    @so /help - all commands list;
-                    @so /kick - kick bot from the current group chat;
-                    @so /list - get current tags' list;
-                    @so /subscribe <subscription> <...filters> - subscribe on main tag;
-                    @so /unsubscribe <ID/IDs/all> - unsubscribe from tag by ID/IDs or from all.`;
+                let text =
+`Possible commands:
+@so /help - all commands list;
+@so /kick - kick bot from the current group chat;
+@so /list - get current tags' list;
+@so /subscribe <subscription> <...filters> - subscribe on main tag;
+@so /unsubscribe <ID/IDs/all> - unsubscribe from tag by ID/IDs or from all.`;
 
                 this.sendResponse(text);
             },
@@ -266,8 +265,7 @@ export default class QBChat {
                     tag: items[2],
                     filters: items.splice(3)
                 }).then(record => {
-                    let text = `ID - ${record._id}
-                        Subscribed to "${record.tag}"\n `;
+                    let text = `ID - ${record._id} \nSubscribed to "${record.tag}"\n `;
 
                     if (record.filters && record.filters.length) {
                         text += `Filters: ${record.filters.join(', ')}.`;
@@ -286,4 +284,4 @@ export default class QBChat {
             }
         };
     }
-}
+};

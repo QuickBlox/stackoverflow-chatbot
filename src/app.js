@@ -1,7 +1,9 @@
-import stackexchange from 'stackexchange';
-import QBChat from './QB_modules/QBChat';
-import cron from 'node-cron';
-import CONFIG from '../config';
+'use strict';
+
+const stackexchange = require('stackexchange');
+const cron = require('node-cron');
+const QBChat = require('./QB_modules/QBChat');
+const CONFIG = require('../config');
 
 class App {
     constructor() {
