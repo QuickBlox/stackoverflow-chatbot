@@ -29,7 +29,7 @@ module.exports = class App {
                 tags.forEach(tag => {
                     this.listPosts({tag: tag})
                         .then(posts => {
-                            this.qbData.getRecordsByTag(tag)
+                            qbData.getRecordsByTag(tag)
                                 .then(records => {
                                     this.notificateSubscribedDialogs(records, posts);
                                 });
