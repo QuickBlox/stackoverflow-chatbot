@@ -1,7 +1,7 @@
 'use strict';
 
 const QB = require('quickblox');
-const CONFIG = require('../../config.js');
+const CONFIG = require('../../config');
 
 module.exports = class QBData {
     constructor() {

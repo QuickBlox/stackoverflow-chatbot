@@ -20,7 +20,7 @@ module.exports = class QBChat {
             id: CONFIG.quickblox.bot.id
         };
 
-        this.qbDialog = new QBDialog();
+        this.qbDialog = new QBDialog(QBChat.sendMessage);
         this.qbData = new QBData();
     }
 
@@ -162,7 +162,9 @@ module.exports = class QBChat {
 
             case '7':
                 this.qbDialog.remove(params)
-                    .then(dialogId => this.qbData.unsubscribe(dialogId, 'all'));
+                    .then(dialogId => {
+                        this.qbData.unsubscribe(dialogId, 'all')
+                    });
                 break;
 
             default:
@@ -238,8 +240,7 @@ module.exports = class QBChat {
             },
 
             sendResponseToHelp() {
-                let text =
-`Possible commands:
+                let text = `Possible commands:
 @so /help - all commands list;
 @so /kick - kick bot from the current group chat;
 @so /list - get current tags' list;
@@ -254,8 +255,11 @@ module.exports = class QBChat {
                     this.sendResponse('Command "@so /kick" uses only in group chat');
                 } else {
                     this.sendResponse('Goodbye! Have a good day!');
+
                     self.qbDialog.remove({'_id': msg.dialog_id})
-                        .then(dialogId => self.qbData.unsubscribe(dialogId, 'all'));
+                        .then(dialogId => {
+                            self.qbData.unsubscribe(dialogId, 'all')
+                        });
                 }
             },
 
@@ -265,7 +269,7 @@ module.exports = class QBChat {
                     tag: items[2],
                     filters: items.splice(3)
                 }).then(record => {
-                    let text = `ID - ${record._id} \nSubscribed to "${record.tag}"\n `;
+                    let text = `ID - ${record._id} \nSubscribed to "${record.tag}"\n`;
 
                     if (record.filters && record.filters.length) {
                         text += `Filters: ${record.filters.join(', ')}.`;

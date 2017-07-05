@@ -1,6 +1,6 @@
 {
   "name": "stackoverflow-chatbot",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "StackOverflow bot for Q-municate",
   "main": "index.js",
   "scripts": {

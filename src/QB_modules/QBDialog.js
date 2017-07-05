@@ -1,14 +1,15 @@
 'use strict';
 
 const QB = require('quickblox');
-const QBChat = require('./QBChat');
-const CONFIG = require('../../config.js');
+const CONFIG = require('../../config');
 
 module.exports = class QBDialog {
-    constructor() {
+    constructor(sendMessage) {
         this.userId = CONFIG.quickblox.bot.id;
         this.userDialogsAssotiation = {};
         this.recipientJid = {};
+        
+        this.sendMessage = sendMessage;
     }
 
     list(skip) {
@@ -59,7 +60,7 @@ module.exports = class QBDialog {
             return new Promise((resolve, reject) => {
                 try {
                     if (+dialog.type === 2) {
-                        QBChat.sendMessage({
+                        this.sendMessage({
                             to: this.getRecipientJid(dialog._id),
                             type: this.getTypeOfChat(dialog._id),
                             text: 'Notification message',
@@ -72,7 +73,7 @@ module.exports = class QBDialog {
                     } else if (+dialog.type === 3) {
                         const id = QB.chat.helpers.getRecipientId(dialog.occupants_ids, this.userId);
 
-                        QBChat.sendMessage({
+                        this.sendMessage({
                             to: this.getRecipientJid(dialog._id),
                             type: this.getTypeOfChat(dialog._id),
                             text: 'Contact request',
@@ -94,7 +95,7 @@ module.exports = class QBDialog {
 
         const _removeDialog = function(dialogId) {
             return new Promise((resolve, reject) => {
-                QB.chat.dialog.delete(dialogId, (err) => {
+                QB.chat.dialog.delete([dialogId], (err) => {
                     if (err) {
                         reject(err);
                     } else {
@@ -106,8 +107,12 @@ module.exports = class QBDialog {
 
         return new Promise((resolve, reject) => {
             this.get(params)
-                .then(result => { return _sayGoodbye.call(this, result); })
-                .then(dialogId => { return _removeDialog(dialogId); })
+                .then(result => {
+                    return _sayGoodbye.call(this, result);
+                })
+                .then(dialogId => {
+                    return _removeDialog(dialogId);
+                })
                 .then(dialogId => resolve(dialogId))
                 .catch(error => reject(error));
         });
@@ -123,7 +128,7 @@ module.exports = class QBDialog {
                 const id = QB.chat.helpers.getRecipientId(dialog.occupants_ids, this.userId);
                 this.setRecipientJid(dialog._id, id);
 
-                QBChat.sendMessage({
+                this.sendMessage({
                     to: this.getRecipientJid(dialog._id),
                     type: this.getTypeOfChat(dialog._id),
                     text: 'Contact request',
@@ -131,7 +136,7 @@ module.exports = class QBDialog {
                     notification_type: '5'
                 });
 
-                QBChat.sendMessage({
+                this.sendMessage({
                     to: this.getRecipientJid(dialog._id),
                     type: this.getTypeOfChat(dialog._id),
                     text: 'Hello! Use "@so /help" to get all commands list.',
@@ -141,7 +146,7 @@ module.exports = class QBDialog {
                 this.setRecipientJid(dialog._id, dialog.xmpp_room_jid);
 
                 QB.chat.muc.join(this.getRecipientJid(dialog._id), () => {
-                    QBChat.sendMessage({
+                    this.sendMessage({
                         to: this.getRecipientJid(dialog._id),
                         type: this.getTypeOfChat(dialog._id),
                         text: 'Hello everybody! Use "@so /help" to get all commands list.',

@@ -2,19 +2,19 @@
 
 const stackexchange = require('stackexchange');
 const cron = require('node-cron');
-const QBChat = require('./QB_modules/QBChat');
 const CONFIG = require('../config');
+const QBChat = require('./QB_modules/QBChat');
 
-class App {
+const stackoverflow = new stackexchange({version: 2.2});
+const qbChat = new QBChat();
+const qbData = qbChat.qbData;
+const qbDialog = qbChat.qbDialog;
+
+module.exports = class App {
     constructor() {
-        this.stackoverflow = new stackexchange({version: 2.2});
-        this.qbChat = new QBChat();
-        this.qbData = this.qbChat.qbData;
-        this.qbDialog = this.qbChat.qbDialog;
-
-        this.qbChat.connect().then(result => {
-            this.qbDialog.list();
-            this.qbChat.qbListeners();
+        qbChat.connect().then(result => {
+            qbDialog.list();
+            qbChat.qbListeners();
 
             cron.schedule(`*/${CONFIG.taskRepeatTime} * * * *`, () => {
                 this.startTask();
@@ -24,7 +24,7 @@ class App {
     }
 
     startTask() {
-        this.qbData.getAllRecordsTags()
+        qbData.getAllRecordsTags()
             .then(tags => {
                 tags.forEach(tag => {
                     this.listPosts({tag: tag})
@@ -59,7 +59,7 @@ class App {
                 order: 'desc'
             };
 
-            this.stackoverflow.questions.questions(filters, (err, res) => {
+            stackoverflow.questions.questions(filters, (err, res) => {
                 if (res) {
                     let posts = results.concat(res.items);
 
@@ -114,5 +114,3 @@ class App {
         return result;
     }
 }
-
-new App();
