@@ -193,7 +193,13 @@ module.exports = class QBChat {
             },
 
             sendFailInfo(err) {
-                this.sendResponse(JSON.stringify(err));
+                let text = err;
+
+                if (typeof err === 'object') {
+                    text = JSON.stringify(err);
+                }
+
+                this.sendResponse(text);
             },
 
             sendDefaultResponse() {
