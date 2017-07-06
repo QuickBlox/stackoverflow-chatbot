@@ -283,7 +283,7 @@ module.exports = class QBChat {
 
             sendResponseToUnsubscribe() {
                 self.qbData.unsubscribe(msg.dialog_id, items.slice(2).join(','))
-                    .then(result => this.sendResponseToList())
+                    .then(result => this.sendResponse(result))
                     .catch(error => this.sendFailInfo(error));
             }
         };

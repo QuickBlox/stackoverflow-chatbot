@@ -33,11 +33,11 @@ module.exports = class QBData {
 
                         return this.removeRecords(_ids);
                     })
-                    .then(result => resolve(result))
+                    .then(result => resolve('Unsubscribed from all.'))
                     .catch(error => reject(error));
             } else {
                 this.removeRecords(params)
-                    .then(results => resolve(results))
+                    .then(result => resolve(`Unsubscribed from ${params}.`))
                     .catch(error => reject(error));
             }
         });
