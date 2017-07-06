@@ -9,9 +9,11 @@ module.exports = class QBData {
     }
 
     subscribe(params) {
-        if (!params.tag) reject('Can\'t subscribe without tag name');
-
         return new Promise((resolve, reject) => {
+            if (!params.tag) {
+                reject('Can\'t subscribe without tag name');
+            }
+
             QB.data.create(this.dataClassName, params, (err, res) => {
                 if (err) {
                     reject(err);
