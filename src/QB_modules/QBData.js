@@ -9,6 +9,8 @@ module.exports = class QBData {
     }
 
     subscribe(params) {
+        if (!params.tag || !params.dialogId) return;
+
         return new Promise((resolve, reject) => {
             QB.data.create(this.dataClassName, params, (err, res) => {
                 if (err) {
@@ -37,7 +39,7 @@ module.exports = class QBData {
                     .catch(error => reject(error));
             } else {
                 this.removeRecords(params)
-                    .then(result => resolve(`Unsubscribed from ${params}.`))
+                    .then(result => resolve(`Unsubscribed from tags with IDs: ${params}.`))
                     .catch(error => reject(error));
             }
         });
