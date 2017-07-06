@@ -20,7 +20,6 @@ module.exports = class App {
                 this.startTask();
             },  true);
         });
-
     }
 
     startTask() {
@@ -86,8 +85,8 @@ module.exports = class App {
             posts.forEach(post => {
                 if (App.isFilteredAndValid(record.filters, post.tags)) {
                     QBChat.sendMessage({
-                        to: this.qbDialog.getRecipientJid(record.dialogId),
-                        type: this.qbDialog.getTypeOfChat(record.dialogId),
+                        to: qbDialog.getRecipientJid(record.dialogId),
+                        type: qbDialog.getTypeOfChat(record.dialogId),
                         post: post,
                         dialogId: record.dialogId
                     });
