@@ -9,7 +9,7 @@ module.exports = class QBData {
     }
 
     subscribe(params) {
-        if (!params.tag || !params.dialogId) return;
+        if (!params.tag) reject('Can\'t subscribe without tag name');
 
         return new Promise((resolve, reject) => {
             QB.data.create(this.dataClassName, params, (err, res) => {
