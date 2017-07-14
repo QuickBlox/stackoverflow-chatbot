@@ -48,7 +48,7 @@ module.exports = class QBData {
     }
 
     listRecords(params, items = [], skip = 0) {
-        const limit = 1000;
+        const limit = 100;
 
         params.limit = limit;
         params.skip = skip;
